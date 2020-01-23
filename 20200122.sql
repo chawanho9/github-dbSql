@@ -141,7 +141,7 @@ WHERE deptno >= 30;
 --'1980/22/03'
 SELECT *
 FROM emp
-WHERE hiredate = TO_DATE('1980/12/17', 'YYYY/MM/DD');
+WHERE hiredate = TO_DATE('19801217', 'YYYYMMDD');
 
 --범위연산
 -- sal 컬럼의 값이 1000에서 2000 사이인 사람

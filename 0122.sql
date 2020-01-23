@@ -11,7 +11,7 @@ FROM lprod;
 DESC users;
 SELECT userid || usernm AS id_name
 FROM users;
-Select CONCAT(userid, usernm) AS id_name2
+Select '이것이 콘켓이다:' || CONCAT(userid, usernm) AS id_name2
 FROM users;
 -- emp 테이블에서 deptno (부서번호가)가 30보다 크거나 같은 사원들만 조회
 SELECT *
