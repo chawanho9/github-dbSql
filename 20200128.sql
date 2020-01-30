@@ -119,9 +119,6 @@ WHERE rn BETWEEN (:page-1) * :pageSize + 1 AND :page * :pageSize ;
 --문자의 대소문자 : LOWER, UPPER, INITCAP
 SELECT LOWER ('Hello, world'), UPPER('Hello, world'),  INITCAP('Hello, world')
 FROM dual;
-
-SELECT LOWER ('Hello, world'), UPPER('Hello, world'),  INITCAP('Hello, world')
-FROM emp;
 --함수는 WHERE절에서도 사용 가능
 --사원 이름이 SMITH인 사람만 조회
 --바인딩변수(자바변수)는 앞에 : 붙여주면댐 
@@ -136,7 +133,7 @@ WHERE LOWER(ename) = :ename;
 
 --
 SELECT CONCAT ('Hello',', world') CONCAT,
-       SUBSTR('Hello, World', 1, 5),
+       SUBSTR('Hello, World', 1, 5) SUB,
        LENGTH('Hello, World') len, 
        INSTR('Hello, World', 'l',5) ins, --특정 문자를 원하는 부분에서 찾기
        LPAD('Hello, World', 15, '*')LP, --원하는 크기많큼 원하는 문자로 왼쪽에서채우기
@@ -176,4 +173,26 @@ DESC emp;
 SELECT ename, hiredate
 FROM emp;
 
+--SYSDATE : 현재 오라클 서버의 시분초가 포함된 날짜 정보를 리턴하는 특수 함수 
+--data = + 정수 = 일자 연산
+-- 1 = 하루
+-- 1시간 = 1/24
+--2020/01/28 + 5
 
+--숫자 표기 : 숫자
+--문자 표기 : 싱글 쿼테이션 + 문자열 + 싱클 쿼테이션 = '문자열'
+--날짜 표기 : TO_DATE('문자열 날짜 값','문자열 나짜값의 표기 형식' --> TO_DATE('2020-01-28', 'YYYY-MM-DD')
+
+SELECT SYSDATE +5, SYSDATE + 1/24 
+FROM dual;
+
+--fn 1 
+--1. 2019년 12월 31일을 date형으로 표현
+--2. 2019년 12월 31일을 date형으로 표현하고 5일 이전 날짜
+--3. 현재 날짜 
+--4. 현재 날짜에 3일 전 값 
+--위 4개 컬럼을 생성하여 다음과 같이 조회하는 쿼리를 작성하세요 
+SELECT TO_DATE('2019/12/31' , 'YYYY/MM/DD'), TO_DATE('2019/12/31' , 'YYYY/MM/DD')-5,SYSDATE, SYSDATE-3
+FROM dual;
+
+     
