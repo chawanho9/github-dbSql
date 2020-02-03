@@ -135,3 +135,16 @@ FROM (
         SELECT deptno,COUNT(*)
         FROM emp
         GROUP BY deptno);
+        
+--과제 3
+--올해 년도의 짝수 구분과, REG_DT년도의 짝수 구분이 동일하면 -->대상자
+--올해 년도의 짝수 구분과, REG_DT년도의 짝수 구분이 동일하지 않으면 -->대상자
+SELECT userid, usernm, reg_dt, 
+     CASE 
+         WHEN MOD(TO_NUMBER(TO_CHAR(reg_dt,'YY')),2) = 0 THEN '비 대상자'
+         WHEN MOD(TO_NUMBER(TO_CHAR(reg_dt,'YY')),2) = 1 THEN ' 대상자'
+                ELSE 'null'
+    END            
+     
+FROM users
+ORDER BY userid;
