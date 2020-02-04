@@ -1,6 +1,11 @@
 -- emp테이블 에서 10번 부서 혹은 30번 부서에 속하는 사람중 급여가 1500이 넘는 사람들만 조회하고 이름으로 내림차순 정렬되도록
 SELECT *
 FROM emp
+WHERE deptno = 10 OR deptno = 30 AND sal >= 1500
+ORDER BY  ename DESC;
+
+SELECT *
+FROM emp
 WHERE deptno IN (20, 30) AND sal > 1500
 ORDER BY ename DESC;
 
@@ -55,6 +60,11 @@ FROM emp e;
 -- 2 page : rn 5~10
 -- 3 page : rn 11~15
 -- n page : rn (page-1) * pageSize + 1 ~ page * pageSize
+SELECT ROWNUM rn, empno, ename
+FROM emp
+WHERE rownum <= 10;
+
+
 SELECT *
 FROM
     (SELECT ROWNUM rn, a.*
@@ -66,19 +76,13 @@ FROM
 WHERE rn BETWEEN (1 - 1) * 5  AND 1 * 5;
 
 --row_1)emp 테이블에서 ROWNUM 값이 1~10인 값만 조회하는 쿼리르 작성하라 (정렬없지 진행)
---ROW절에 WHERE을 같이 못쓴다?
-
+--다시풀어 
+--sem
 SELECT *
 FROM 
-    (SELECT ROWNUM rn, a.*
-    FROM 
-        (SELECT * 
-        FROM emp )a)
-WHERE rn >= 1 AND rn <= 10 ;     
---sem
-SELECT ROWNUM rn, empno, ename
-FROM emp
-WHERE ROWNUM <= 10;
+    (SELECT ROWNUM rn, empno, ename
+    FROM emp)
+WHERE rn <= 10;
 
 SELECT *
 FROM 
@@ -97,13 +101,11 @@ WHERE rn BETWEEN 11 AND 20;
 --아스테리크스 외의 다르 이스테릭션? 뽑을떄 x.*
 --rownum이 where절에서 사용할수없기떄문에한번더 감싼다
 SELECT *
-FROM 
-    (SELECT ROWNUM rn, a.*
-    FROM 
-        (SELECT  empno, ename
-        FROM emp
-        ORDER BY ename)a) 
-WHERE rn BETWEEN 11  AND 15;
+FROM ( 
+    SELECT ROWNUM RN, empno, ename
+    FROM emp)
+WHERE  rn BETWEEN 11 AND 14
+ORDER BY  empno;
 
 SELECT *
 FROM 
@@ -112,9 +114,9 @@ FROM
         (SELECT  empno, ename
         FROM emp
         ORDER BY ename)a) 
-WHERE rn BETWEEN (:page-1) * :pageSize + 1 AND :page * :pageSize ;    
+WHERE rn BETWEEN (:page-1) * :pageSize + 1 AND :page * :pageSize ;  
 --(page-1) * pageSize + 1 ~ page * pageSize
---매서드##############################################################################
+--매서드##############################################################################여기부터
 -- DUAL 테이블 : 데이터와 관계없이, 함수를 테스트해볼 목적으로 사용
 --문자의 대소문자 : LOWER, UPPER, INITCAP
 SELECT LOWER ('Hello, world'), UPPER('Hello, world'),  INITCAP('Hello, world')

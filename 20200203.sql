@@ -51,7 +51,7 @@ WHERE e.mgr = m.empno;
 SELECT *
 FROM emp;
 
-OUTER JOIN
+OUTER JOIN;
 두 테이블을 조인할 떄 연결 조건을 만족 시키지 못하는 데이터를
 기준으로 지정한 테이블의 데이터만이라도 조회 되게끔 하는 조인 방식;
 
@@ -146,7 +146,7 @@ FROM buyprod b RIGHT OUTER JOIN prod p ON p.prod_id = b.buy_prod AND b.buy_date 
 SELECT *
 FROM buyprod;
 
-SELECT count(*)
+SELECT *
 FROM prod;
 --2
 SELECT buyprod.buy_date, buyprod.buy_prod, prod.prod_id, prod.prod_name, buyprod.buy_date
@@ -155,7 +155,7 @@ WHERE prod.prod_id = buyprod.buy_prod(+)
 AND buyprod.buy_date(+) = to_date('20050125','yyyymmdd');
 
 --outer join 2
-SELECT to_date('20050125','yyyymmdd'),b.buy_date, b.buy_prod, p.prod_id, p.prod_name, b.buy_date
+SELECT to_date('20050125','yyyymmdd'), b.buy_prod, p.prod_id, p.prod_name,b.buy_qty
 FROM buyprod b RIGHT OUTER JOIN prod p ON p.prod_id = b.buy_prod AND b.buy_date = to_date('20050125','yyyymmdd');
 
 

@@ -2,6 +2,7 @@
 SELECT *
 FROM lprod;
 --buyer 테이블에서 buyer_id, buyer_name 컬럼만 조회하는 쿼리를 작성하세요
+
 SELECT buyer_id, buyer_name
 FROM buyer;
 --cart 테이블에서 모든 데이터를 조회하는 쿼리를 작성하세요
@@ -21,7 +22,7 @@ FROM users;
 --3. DESC 테이블명 (DESC-DESCRIBE)
 DESC users;
 SELECT *
-FROM uswers;
+FROM users;
 
 --users 테이블에서 userid, usernm, reg_dt 컬럼만 조회하는 sql을 작성하세요 
 -- 날짜 연산 (reg_dt 컬럼은 date정보를 담을수 있는 바입)
@@ -44,6 +45,10 @@ DESC users;
 
 --prod 테이블에서 prod_id, prod_name 두 컬럼을 조회하는 쿼리를 작성하시오
 --(단 prod_id-> id prod_name -> name으로 별칭 지정 
+SELECT prod_id id , prod_name name
+FROM prod ;
+
+
 DESC prod;
 SELECT prod_id AS id, prod_name AS name
 FROM prod;
@@ -76,6 +81,7 @@ FROM users;
 --문자열 상수와 컬럼간의 결합
 -- user id : brown
 -- user id : cony
+
 SELECT 'user id : '|| userid AS "User id"
 FROM users;
 
@@ -89,6 +95,8 @@ FROM USER_TABLES;
 --SQL에서는 : concat('Hello', 'world')
 SELECT CONCAT(CONCAT('SELECT * FROM ',TABLE_NAME),';') AS QUERY
 FROM USER_TABLES;
+SELECT CONCAT(CONCAT('SELECT * FROM ',userid),';') AS QUERY
+FROM users;
 
 -- int a = 5; // 할당, 대입 연산자
 -- if(a == 5) (a의 값이 5인지 비교)
@@ -102,7 +110,7 @@ FROM USER_TABLES;
 --같을떄 : = , 다를떄 : !=, <>
 SELECT *
 FROM users
-WHERE userid <>'brown';
+WHERE userid !='brown';
 
 --emp 테이블에 존재하는 컬럼을 확인 해보세요
 SELECT *
@@ -143,6 +151,7 @@ SELECT *
 FROM emp
 WHERE hiredate = TO_DATE('19801217', 'YYYYMMDD');
 
+
 --범위연산
 -- sal 컬럼의 값이 1000에서 2000 사이인 사람
 -- sal >= 1000
@@ -165,12 +174,3 @@ SELECT ename,hiredate
 FROM emp
 --WHERE hiredate = TO_DATE('1980/12/17', 'YYYY/MM/DD');
 WHERE hiredate BETWEEN TO_DATE('19820101','YYYYMMDD') AND TO_DATE('19830101','YYYYMMDD');
-
-
-
-
-
-
-
-
-
