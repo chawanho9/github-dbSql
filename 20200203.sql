@@ -32,6 +32,7 @@ SELECT c.cid,c.cnm,cy.pid,p.pnm,SUM(cy.cnt)
 FROM customer c ,cycle  cy,product p
 WHERE c.cid = cy.cid AND cy.pid = p.pid
 GROUP BY c.cid,c.cnm,cy.pid,p.pnm;
+--각각 그룹바이를 해줘야 컴퓨터가 인식해 뽑을수 있다시풀어
 
 --join 7
 SELECT cy.pid,p.pnm,SUM(cy.cnt)
@@ -82,6 +83,8 @@ FROM emp e, emp m
 WHERE e.mgr = m.empno(+);
 위의 SQL을 ANSL (OUTER JOING)으로 변경해보세요;
 매니저의 부서번호가 10번인 직원만 조회;
+
+
 SELECT *
 FROM emp;
 
@@ -129,15 +132,23 @@ SELECT e.empno,e.ename, e.mgr, m.empno, m.ename
 FROM emp e FULL OUTER JOIN emp m ON (e.mgr = m.empno);
 
 --OUTERJOIN 1
-SELECT *
-FROM buyprod
-WHERE buy_date = TO_DATE('2005/01/25','YYYY/MM/DD') ;
-SELECT *
+SELECT*
 FROM prod;
+SELECT*
+FROM buyprod;
 
-SELECT *
-FROM buyprod 
-where buy_date = TO_DATE('2005/01/25','YYYY/MM/DD') ;
+SELECT b.buy_date,b.buy_prod,p.prod_id,p.prod_name,NVL(b.buy_qty,0)
+FROM buyprod b RIGHT OUTER JOIN prod p ON(b.buy_prod = p.prod_id) AND b.buy_date = TO_DATE('05/01/25','yy/mm/dd');
+
+SELECT b.buy_date,b.buy_prod,p.prod_id,p.prod_name,b.buy_qty
+FROM buyprod b right OUTER JOIN prod p ON(b.buy_prod = p.prod_id) and b.buy_date = TO_DATE('05/01/25','YY/MM/DD');
+--WHERE TO_DATE(b.buy_date,'YY/MM/DD') != TO_DATE('05/01/25','YY/MM/DD');
+
+SELECT b. buy_date, b.buy_prod, a.prod_id, a.prod_name, b.buy_qty
+FROM prod a left outer join buyprod b on a.prod_id = b.buy_prod and b.buy_date = TO_DATE('05/01/25','YY/MM/DD');
+
+
+
 --1
 SELECT b.buy_date, b.buy_prod, p.prod_id, p.prod_name, b.buy_date
 FROM buyprod b RIGHT OUTER JOIN prod p ON p.prod_id = b.buy_prod AND b.buy_date = to_date('20050125','yyyymmdd');
@@ -161,3 +172,29 @@ FROM buyprod b RIGHT OUTER JOIN prod p ON p.prod_id = b.buy_prod AND b.buy_date 
 
 
 
+SELECT *
+FROM buyprod b LEFT OUTER JOIN prod p ON(b.buy_prod = p.prod_id);
+
+--OUTER JOIN 4
+SELECT *
+FROM cycle;
+
+SELECT*
+FROM product;
+
+SELECT p.pid,p.pnm,NVL(c.cid,1),NVL(c.day,0),NVL(c.cnt,0)
+FROM product p LEFT OuTER JOIN cycle c ON (p.pid = c.pid)AND p.pid NOT IN (200,300) 
+and c.cid=1;
+
+--OUBER JOIN 5
+SELECT *
+FROM cycle;
+SELECT *
+FROM product;
+SELECT *
+FROM customer;
+
+SELECT p.pid,p.pnm,NVL(c.cid,1),NVL(cu.cnm,'brown'),NVL(c.day,0),NVL(c.cnt,0)
+FROM product p left OUTER JOIN cycle c ON (c.pid= p.pid) 
+AND c.pid NOT IN (200,300)
+AND c.cid=1 left OUTER JOIN customer cu ON (c.cid = cu.cid);

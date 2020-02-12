@@ -19,6 +19,9 @@ FROM product;
 SELECT *
 FROM customer c , product P;
 
+--crossjoin1
+SELECT * 
+FROM customer CROSS JOIN product;
 SUBQUERY : 쿼리 안에 다른 쿼리가 들어가 있는 경우 
 SUBQUERY가 사용된 위치에 따라 3가지로 분류
 
@@ -52,8 +55,15 @@ WHERE deptno =  ( SELECT deptno
 
 --sub1
 --평균 급여보다 높은 급여를 받는 직원의 수를 조회하세요
-SELECT*
-FROM EMP;
+SELECT COUNT(*)
+FROM EMP
+WHERE SAL > 
+            (SELECT AVG(sal)
+             FROM EMP);
+
+
+
+
 
 SELECT count(*)
 FROM emp
@@ -61,6 +71,18 @@ WHERE sal > (SELECT AVG(sal)
 FROM EMP);
 
 --sub2
+SELECT AVG(SAL)
+FROM emp;
+
+select *
+from EMP
+WHERE sal >  (SELECT AVG(SAL)
+            FROM emp);
+
+
+
+
+
 SELECT *
 FROM emp
 WHERE sal > (SELECT AVG(sal)
@@ -73,6 +95,17 @@ ANY (활용도는 다소 떨어짐):서브쿼리의 여러행중 한행이라도 조건을 만족할떄
 ALL (활용도는 다소 떨어짐):서브쿼리의 여러행중 모든행에 대해 조건을 만족할떄;
 
 --sub3
+
+SELECT deptno
+FROM emp
+WHERE ename IN ('SMITH','WARD');
+
+SELECT *
+FROM emp
+WHERE deptno  IN ( SELECT deptno
+               FROM emp
+               WHERE ename IN ('SMITH','WARD'));
+
 SELECT deptno
 FROM emp
 WHERE ename IN ('SMITH','WARD');
@@ -226,14 +259,42 @@ COMMIT; 트랜잭션 확정
 --sub4
 dept 테이블에는 신규 등록된 99번 부서에 속한 사람은 없음
 직원이 속하지 않은 부서를 조회하는 쿼리르 작성해보세요;
-SELECT * 
+서브쿼리에서 데이터의 조건이 맞는지 확인자 역할을 하는 서브쿼리 작성;
+
+SELECT deptno 
 FROM emp;
 
-SELECT * 
-FROM dept;
+SELECT *
+FROM dept
+WHERE deptno NOT IN (SELECT deptno 
+                        FROM emp);
 
 SELECT* 
 FROM dept
-WHERE deptno NOT IN (select deptno FROM emp); --비상호연관
+WHERE deptno NOT IN (select deptno 
+                     FROM emp); --비상호연관
 
-               
+--sub5
+SELECT pid
+FROM cycle
+WHERE cid =1
+GROUP BY pid;
+
+SELECT*
+FROM product
+WHERE PID NOT IN (SELECT pid
+                FROM cycle
+                WHERE cid =1
+                GROUP BY pid);
+
+SELECT pid
+FROM cycle
+WHERE cid = 1;
+
+SELECT pid ,pnm
+FROM product
+WHERE pid NOT IN (SELECT pid
+                  FROM cycle
+                  WHERE cid = 1);
+
+              

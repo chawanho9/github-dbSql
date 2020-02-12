@@ -64,6 +64,9 @@ SELECT ROWNUM rn, empno, ename
 FROM emp
 WHERE rownum <= 10;
 
+SELECT ROWNUM rn, emp.*
+FROM emp
+where ROWNUM<=10;
 
 SELECT *
 FROM
@@ -76,6 +79,13 @@ FROM
 WHERE rn BETWEEN (1 - 1) * 5  AND 1 * 5;
 
 --row_1)emp 테이블에서 ROWNUM 값이 1~10인 값만 조회하는 쿼리르 작성하라 (정렬없지 진행)
+
+SELECT*
+FROM
+(SELECT ROWNUM rn, emp.*
+FROM emp) 
+where rn<=10;
+
 --다시풀어 
 --sem
 SELECT *

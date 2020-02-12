@@ -97,8 +97,16 @@ SELECT *
 FROM emp
 WHERE comm IS NOT NULL;
 
---사원의 관리자가 7690, 7839 그리고 null이 아닌 직원만 조회-------------------------------다시풀어-------------
---NOT IN 연산자에서는 NULL 값을 포함 시키면 안된다.
+--사원의 관리자가 7690, 7839 그리고 매니저 유무가 null이 아닌 직원만 조회-------------------------------다시풀어-------------
+NOT IN 연산자에서는 NULL 값을 포함 시키면 안된다.;
+SELECT * 
+FROM emp
+where empno not in (7690, 7839)
+and mgr is not null;
+
+SELECT*
+FROM emp
+WHERE empno NOT IN (7690,7839) AND mgr IS NOT NULL;
 
 SELECT *
 FROM emp;
@@ -184,10 +192,13 @@ SELECT *
 FROM emp
 WHERE (ename = 'SMITH' OR ename = 'ALLEN') AND job = 'SALESMAN';
 --emp 테이블에서 job이 SALESMAN이거나 사원번호가 78로 시작하면서 입사일자가 1981년 6월 1일 이후인 직원의 정보를 다음과 같이 조회하세요
---##########################다시풀어
+데이터 값이 대문자면  대문자로 찾아야쥐;
+--##########################다시풀어EMP
+
+
 SELECT *
 FROM emp
-WHERE job = 'SALESMAN' OR empno LIKE ('78%') AND TO_DATE(hiredate,'YYYY/MM/DD') > TO_DATE('1981/06/01' ,'YYYY/MM/DD'); 
+WHERE job = 'SALESMAN' OR (empno LIKE ('78%') AND hiredate > TO_DATE('1981/06/01' ,'YYYY/MM/DD')); 
 
 
 SELECT*

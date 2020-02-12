@@ -28,14 +28,8 @@ WHERE r.region_name = 'Europe';
 SELECT e.employee_id, e.first_name || e.last_name name,j.job_id, j.job_title
 FROM employees e JOIN jobs j ON (j.job_id = e.job_id);
 
---join13  다시풀어
-SELECT d.manager_id,e.first_name || e.last_name, e.employee_id,j.job_id,j.job_title
-FROM employees e JOIN employees e2 ON (e.employee_id =e2.manager_id) 
-JOIN DEPARTMENTS d ON (e.department_id = d.department_id)
-JOIN jobs j ON (j.job_id=e.job_id)
-WHERE d.manager_id = 100;
+--join13  다시풀어 두번풀어
 
+SELECT e.employee_id,e.first_name || e.last_name,e2.employee_id,e2.first_name || e2.last_name,j.job_id,job_title
+FROM employees e JOIN employees e2 ON (e.employee_id = e2.manager_id) JOIN jobs j ON (e2.job_id = j.job_id);
 
-
-SELECT e.manager_id,e.employee_id,e.first_name || e.last_name name,j.job_id,job_title
-FROM employees e JOIN jobs j ON (j.job_id = e.job_id) JOIN job_history jh ON (e.employee_id = jh.employee_id);
