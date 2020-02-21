@@ -1,4 +1,5 @@
 Drop table emp_test;
+
 CREATE TABLE emp_test(
     empno NUMBER(4),
     ename VARCHAR2(10),
@@ -56,7 +57,6 @@ COMMENT ON TABLE dept IS 'ºÎ¼­';
 SELECT*
 FROM user_tab_comments
 WHERE table_name in ('EMP','DEPT');
-WHERE WHERE WHERE WHERE WHERE WHERE WHERE WHERE WHERE WHERE WHERE WHERE WHERE WHERE WHERE;
 
 SELECT *
 FROM USER_COL_COMMENTS;

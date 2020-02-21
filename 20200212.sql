@@ -144,7 +144,13 @@ Predicate Information (identified by operation id):
    5 - access("EMP"."DEPTNO"="DEPT"."DEPTNO")
 
 --idx1 
-drop index idx_dept_test_02 ;
+--create table dept_test2 as select * from dept where 1=1
+--구문으로 dept_test 테이블 생성후 다음 조건에 맞는 인덱스를 생서앟세요 '
+create table dept_test2 as select * from dept where 1=1;
+create unique index idx_u_dept_test_01 on dept_test2(deptno);
+create index idx_n_dept_test_02 on dept_test2(dname);
+create index idx_n_dept_test_03 on dept_test2(deptno, dname);
+drop index idx_u_dept_test_01 ;
 CTAS 
 제약조건 복사가 NOT NULL 만 된다
 백업이나 테스트 용으로 사용 ;
@@ -186,7 +192,7 @@ create index idx_dept_test_03 on dept_test (dname,deptno);
  select *
  from emp,dept
  where emp.deptno = dept.deptno
- and emp.deptno = : deptno
+ and emp.deptno = : deptno;
  
   2.sal ,deptno index 생성;
  create index idx_n_emp_01 on emp(sal, deptno);
@@ -216,8 +222,8 @@ Predicate Information (identified by operation id):
  
    1 - filter(TO_NUMBER(:ST_SAL)<=TO_NUMBER(:ED_SAL))
    3 - access("SAL">=TO_NUMBER(:ST_SAL) AND "DEPTNO"=TO_NUMBER(:DEPTNO) AND 
-              "SAL"<=TO_NUMBER(:ED_SAL))
-       filter("DEPTNO"=TO_NUMBER(:DEPTNO));
+              "SAL"<=TTNO)O_NUMBER(:ED_SAL))
+       filter("DEPTNO"=TO_NUMBER(:DEP);
  ---------------------------------------------------------------------------------------------------
 --5.  emp 내부 조인 쿼리이다. 조건절에 매니저 넘버랑 직원넘버가 같다는 조건이 있음
 -- 부서별로 정렬을 해주기 위해 인덱스 생성
@@ -281,7 +287,17 @@ group by deptno, to_char(hiredate, 'yyyymm');
  deptno, sal, mhr, hiredate
  
  
- --idx 
+ --idx3;
+ 
+select*
+from emp
+where empno = :empno;
+
+SELECt *
+FROM emp
+WHERE empno = :empno ;
+
+ 
  
  
 
