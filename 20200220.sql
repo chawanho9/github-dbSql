@@ -209,12 +209,12 @@ END;
 CREATE OR REPLACE PROCEDURE printdept_wano IS
       v_deptno dept.deptno%type;
       v_dname dept.dname%type;
-
+     v_loc dept.loc%type;
       BEGIN
-         SELECT deptno, dname INTO v_deptno, v_dname
+         SELECT deptno, dname, loc INTO v_deptno, v_dname , v_loc
          FROM dept
          WHERE deptno = 10;
-         DbmS_OUTPUT.PUT_LINE(v_deptno || ' : ' || v_dname);
+         DbmS_OUTPUT.PUT_LINE(v_deptno || ' : ' || v_dname|| ' : ' || v_loc);
       END;
    /
 
@@ -234,3 +234,16 @@ begin
 end;
 /
 exec printdept_p_wano(10);
+
+create or replace procedure wano(p_deptno in DEPT.DEPTNO%type) is
+    v_dname dept.dname%type;
+    v_loc dept.loc%type;
+begin
+    select dname, loc into v_dname, v_loc
+    from dept 
+    where deptno = p_deptno;
+    dbms_output.put_line(v_dname || '   ' || v_loc);
+    end;
+/
+exec wano(10);
+
